@@ -1,0 +1,194 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ banner.title }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body, h1, h2, h3, p, a, span {
+      font-family: 'Poppins', sans-serif;
+    }
+    
+  .hero-section {
+  position: relative;
+  color: white;
+  min-height: 100vh; /* fill full screen height */
+  text-align: center;
+  overflow: hidden; /* prevent white gaps */
+}
+
+.hero-section img.bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ensures image fills area without gaps */
+  object-position: center;
+  z-index: -1;
+}
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      color: white;
+      text-align: center;
+      max-width: 900px;
+      padding: 40px 20px;
+      margin-top: 250px;
+    }
+    
+    /* Top-left horizontal line */
+    .hero-content::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 150px;
+      height: 0;
+      border-top: 4px solid #ffd700;
+    }
+    
+    /* Bottom-right vertical line */
+    .hero-content::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 0;
+      height: 120px;
+      border-right: 4px solid #ffd700;
+    }
+    
+    /* Bottom-right horizontal line */
+    .top-right-line {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 150px;
+      height: 0;
+      border-top: 4px solid #ffd700;
+    }
+    
+    /* Bottom-left vertical line */
+    .bottom-left-line {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 120px;
+      border-left: 4px solid #ffd700;
+    }
+
+    .btn-gold {
+      background-color: #ffd700;
+      color: #000;
+      font-weight: bold;
+      padding: 3px 12px;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero-content {
+        margin-top: 150px;
+        padding: 20px;
+      }
+      .hero-content::before { width: 80px; }
+      .top-right-line { width: 80px; }
+      .hero-content::after { height: 80px; }
+      .bottom-left-line { height: 80px; }
+    }
+    /* Corner line animations */
+.hero-content::before {
+  animation: drawHorizontal 1s ease-out forwards;
+}
+
+.hero-content::after {
+  animation: drawVertical 1s ease-out forwards;
+  animation-delay: 0.5s;
+}
+
+.top-right-line {
+  animation: drawHorizontal 1s ease-out forwards;
+  animation-delay: 0.5s;
+}
+
+.bottom-left-line {
+  animation: drawVertical 1s ease-out forwards;
+}
+
+@keyframes drawHorizontal {
+  from { width: 0; }
+  to { width: 150px; }
+}
+
+@keyframes drawVertical {
+  from { height: 0; }
+  to { height: 120px; }
+}
+
+/* Smaller screens scaling */
+@media (max-width: 768px) {
+  @keyframes drawHorizontal {
+    from { width: 0; }
+    to { width: 80px; }
+  }
+  @keyframes drawVertical {
+    from { height: 0; }
+    to { height: 80px; }
+  }
+}
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #040837;">
+    <div class="container">
+      {% if banner.house_image %}
+        <a class="navbar-brand" href="#">
+          <img src="{{ banner.house_image.url }}" alt="Logo" height="50">
+        </a>
+      {% endif %}
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-4">
+          <li class="nav-item"><a class="nav-link text-white" href="#">About Us</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="#">Services</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="#">Plans & Pricing</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="#">Projects</a></li>
+          <li class="nav-item">
+            <a href="#" class="btn btn-gold rounded ms-lg-3">Enquiry</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section d-flex justify-content-center align-items-center">
+    {% if banner.background_image %}
+      <img src="{{ banner.background_image.url }}" alt="Background" class="bg-img" />
+    {% endif %}
+    <div class="hero-content container">
+      <span class="top-right-line"></span>
+      <span class="bottom-left-line"></span>
+      <h1>Your <span style="color:#FFD700;">{{ banner.subtitle }}</span> space, built to perfection.</h1>
+      <p>{{ banner.description1 }} <br> {{ banner.description2 }}</p>
+      <a style="font-weight: normal;" href="#" class="btn btn-gold rounded px-4 py-2">Book Now</a>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
