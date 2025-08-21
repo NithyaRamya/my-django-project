@@ -1,0 +1,152 @@
+{% load static %}
+
+
+<title>Enquiry</title>
+
+{% block content %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+  }
+  .enquiry-section {
+    min-height: 100vh;
+  }
+  .left-col {
+    background-color: #fff9c4; /* light yellow */
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+  }
+  .left-col h2 {
+    font-weight: bold;
+  }
+  .left-col h2 span {
+    color: #f4c20f; /* bright yellow */
+  }
+
+  h4 span{color: #f4c20f; }
+  .left-col p {
+    margin-top: 15px;
+    font-size: 15px;
+    color: #333;
+  }
+  .illustration {
+    margin-top: 30px;
+    text-align: center;
+  }
+  .illustration img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .right-col {
+    background-color: #fff;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 2px solid #eee;
+  }
+  .right-col h4 {
+    font-weight: bold;
+    margin-bottom: 30px;
+  }
+
+  /* Input styling */
+  .form-control {
+    border: 1px solid #f4c20f;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    padding: 12px;
+  }
+  select.form-control {
+    height: 48px;
+  }
+  .form-check-input {
+    border: 1px solid #f4c20f;
+  }
+  .btn-submit {
+    background-color: #f4c20f;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+  }
+  .btn-submit:hover {
+    background-color: #f1b900;
+  }
+
+  .book-btn {
+  background: linear-gradient(to right,  #0B0C45 , #ffcc00); /* blue → yellow */
+  color: #fff;
+  border: none;
+  border-radius:none;
+  font-weight: bold;
+  padding: 5px 18px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Hover effect */
+.book-btn:hover {
+  background: linear-gradient(to right, #ffcc00,   #0B0C45); /* reverse */
+  color: #fff;
+  transform: translateY(-0px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+}
+</style>
+
+<section class="enquiry-section container-fluid">
+  <div class="row g-0">
+
+    <!-- Left Column -->
+    <div class="col-lg-6 col-12 left-col">
+      {% if enquirytitle %}
+        <h2>{{ enquirytitle.title1|safe }}</h2>
+        <p>{{ enquirytitle.description }}</p>
+        {% if enquirytitle.enquiry_image %}
+          <div class="illustration">
+            <img src="{{ enquirytitle.enquiry_image.url }}" alt="Illustration">
+          </div>
+        {% endif %}
+        <div class="d-flex justify-content-center mt-4">
+          <a href="{% url 'faq' %}" class="btn book-btn">FAQ</a>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Right Column -->
+    <div class="col-lg-6 col-12 right-col">
+      {% if enquirytitle %}
+        <h4 style="text-align: center;">{{ enquirytitle.title2|safe }}</h4>
+      {% endif %}
+      <form method="POST" action="{% url 'enquiry' %}">
+        {% csrf_token %}
+        <input type="text" name="name" class="form-control mb-3" placeholder="Enter your Name" required>
+        <input type="email" name="email" class="form-control mb-3" placeholder="Enter your mail Id" required>
+        <input type="text" name="phone" class="form-control mb-3" placeholder="Enter your Phone Number" required>
+        <select name="service" class="form-control mb-3" required>
+          <option value="">Select Service</option>
+          <option>Construction</option>
+          <option>Renovation</option>
+          <option>Interior Design</option>
+        </select>
+        <textarea name="details" class="form-control mb-3" rows="4" placeholder="Enter Your Details"></textarea>
+        <div class="form-check mb-3">
+          <input type="checkbox" class="form-check-input" id="robotCheck" required>
+          <label for="robotCheck" class="form-check-label">I'm not a robot</label>
+        </div>
+        <button type="submit" class="btn-submit">Submit</button>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

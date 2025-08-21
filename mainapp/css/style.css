@@ -1,3 +1,15 @@
 body {
     font-family: 'Poppins', sans-serif !important;
 }
+.card img {
+    height: 220px;
+    object-fit: cover;
+}
+.nav-link {
+  color: white !important;
+  transition: color 0.3s;
+}
+
+.nav-link.active {
+  color: #FFD700 !important; /* Yellow */
+}

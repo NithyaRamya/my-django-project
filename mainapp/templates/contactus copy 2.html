@@ -1,0 +1,667 @@
+{% extends 'base.html' %} {% load static %} {% block title %}
+  {{ contactbanner.title }}
+{% endblock %} {% block content %}
+  <style>
+  body, h1, h2, h3, p, a, span { font-family: 'Poppins', sans-serif; }
+    
+  .hero-section {
+  position: relative;
+  color: white;
+  min-height: 100vh; /* fill full screen height */
+  text-align: center;
+  overflow: hidden; /* prevent white gaps */
+}
+
+.hero-section img.bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ensures image fills area without gaps */
+  object-position: center;
+  z-index: -1;
+}
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      color: white;
+      text-align: center;
+      max-width: 900px;
+      padding: 40px 20px;
+      margin-top: 250px;
+    }
+    
+    /* Top-left horizontal line */
+    .hero-content::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 150px;
+      height: 0;
+      border-top: 4px solid #ffd700;
+    }
+    
+    /* Bottom-right vertical line */
+    .hero-content::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 0;
+      height: 120px;
+      border-right: 4px solid #ffd700;
+    }
+    
+    /* Bottom-right horizontal line */
+    .top-right-line {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 150px;
+      height: 0;
+      border-top: 4px solid #ffd700;
+    }
+    
+    /* Bottom-left vertical line */
+    .bottom-left-line {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 120px;
+      border-left: 4px solid #ffd700;
+    }
+
+    .btn-gold {
+      background-color: #ffd700;
+      color: #000;
+      font-weight: bold;
+      padding: 3px 12px;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero-content {
+        margin-top: 150px;
+        padding: 20px;
+      }
+      .hero-content::before { width: 80px; }
+      .top-right-line { width: 80px; }
+      .hero-content::after { height: 80px; }
+      .bottom-left-line { height: 80px; }
+    }
+    /* Corner line animations */
+.hero-content::before {
+  animation: drawHorizontal 1s ease-out forwards;
+}
+
+.hero-content::after {
+  animation: drawVertical 1s ease-out forwards;
+  animation-delay: 0.5s;
+}
+
+.top-right-line {
+  animation: drawHorizontal 1s ease-out forwards;
+  animation-delay: 0.5s;
+}
+
+.bottom-left-line {
+  animation: drawVertical 1s ease-out forwards;
+}
+
+@keyframes drawHorizontal {
+  from { width: 0; }
+  to { width: 150px; }
+}
+
+@keyframes drawVertical {
+  from { height: 0; }
+  to { height: 120px; }
+}
+
+/* Smaller screens scaling */
+@media (max-width: 768px) {
+  @keyframes drawHorizontal {
+    from { width: 0; }
+    to { width: 80px; }
+  }
+  @keyframes drawVertical {
+    from { height: 0; }
+    to { height: 80px; }
+  }
+}
+@media (max-width: 768px) {
+  /* Hero section adjustments */
+  .hero-section {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+  .hero-section h1 {
+    font-size: 1.8rem;
+    line-height: 1.4;
+  }
+  .hero-section p {
+    font-size: 1rem;
+  }
+
+  /* Why choose us circular cards */
+  .custom-row .rounded-circle {
+    width: 140px !important;
+    height: 140px !important;
+    padding: 20px !important;
+  }
+  .custom-row p {
+    font-size: 0.85rem;
+  }
+
+  /* Features section image */
+  .col-md-4 img {
+    max-width: 80%;
+    height: auto;
+  }
+
+  /* Review cards */
+  .review-card .bg-img {
+    height: 180px;
+  }
+  .review-card .review-box {
+    width: 90%;
+    padding: 10px;
+  }
+  .review-card h5 {
+    font-size: 1rem;
+  }
+  .review-card p {
+    font-size: 0.85rem;
+  }
+
+  /* Services section spacing */
+  .services-section span {
+    font-size: 0.85rem !important;
+    padding: 4px 8px !important;
+  }
+
+  /* Footer stacking */
+  footer > div {
+    flex-direction: column;
+    text-align: center;
+  }
+  footer img {
+    margin: auto;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  .hero-section h1 {
+    font-size: 1.5rem;
+  }
+  .hero-section p {
+    font-size: 0.9rem;
+  }
+  .custom-row .rounded-circle {
+    width: 120px !important;
+    height: 120px !important;
+  }
+  .review-card .bg-img {
+    height: 150px;
+  }
+}
+.custom-row {
+    row-gap: 3rem; /* vertical gap */
+    column-gap: 2rem; /* horizontal gap */
+}
+img.img-fluid {
+    object-fit: cover;
+    width: 100%;
+    height: 250px; /* uniform height */
+}
+ /* Target the 2nd card in the row */
+  .row.g-4 .col-md-6:nth-child(2) {
+    margin-top: -30px;
+    margin-bottom: 60px;
+     /* adjust this value to move more/less */
+  }
+
+  
+      /* Review card container */
+  .review-card {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    max-width: 300px;
+    height:350px;
+    margin: auto;
+    background: white; /* Fallback if no image */
+  }
+
+  /* Background image */
+  .review-card .bg-img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* White floating review box */
+  .review-card .review-box {
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    bottom: 15px; /* Creates gap between box and card bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-height: 180px; /* Enough height for short reviews */
+  }
+
+  /* Profile image */
+  .review-card .profile-pic {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid white;
+    position: absolute;
+    top: -25px; /* Floating above box */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Reviewer name */
+  .review-card h5 {
+    font-weight: bold;
+    margin-top: 25px; /* Adjust for profile image overlap */
+    font-size: 16px;
+  }
+
+  /* Review text */
+  .review-card p {
+    font-size: 8px;
+    color: #555;
+    margin-bottom: 10px;
+  }
+
+  /* Stars */
+  .review-card .stars {
+    color: gold;
+    font-size: 14px;
+  }
+
+  /* Middle card lifted */
+  
+.five-words-line {
+    line-height: 1.6;
+    margin-top: 5px;
+    max-width: 30ch; /* around 5 average-length words */
+    word-wrap: break-word;
+}
+.contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.contact-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* space between icon and text */
+    margin-bottom: 10px;
+}
+
+.contact-list a {
+    background-color: #FFD700; /* yellow circle */
+    color: #0B0C45; /* dark blue icon color */
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.contact-list a:hover {
+    background-color: #ffcc00; /* hover yellow */
+}
+
+{% comment %} about-us page {% endcomment %}
+.about-section h2 {
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.about-section p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #333;
+}
+
+.about-section img {
+  border-radius: 15px;
+  transition: transform 0.3s ease;
+}
+
+.about-section img:hover {
+  transform: scale(1.03);
+}
+@media (max-width: 960px) {   /* adjust breakpoint as needed */
+    footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        flex-wrap: wrap;
+    }
+
+    footer h2, 
+    footer h3, 
+    footer p, 
+    footer a {
+        text-align: center;
+        margin: 5px 0;
+    }
+}
+
+
+   .card {
+      position: relative;
+      width: 220px;
+      background: linear-gradient(to bottom, #fbd02d, #0a1ab9);
+      text-align: center;
+      border-radius: 0 0 120px 120px;
+      padding: 40px 20px 100px;
+      font-family: Arial, sans-serif;
+      color: white;
+      border:none;
+    }
+
+   
+.card::before,
+.card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(to left, #fbd02d, #0a1ab9);
+}
+
+.card::before {
+  left: -40px;  
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+
+.card::after {
+  right: -40px;
+  clip-path: polygon(100% 100%,0 0, 0 100% );}
+
+    .card h2 {
+      font-size: 25px;
+      font-weight: bold;
+      margin: 0;
+      margin-bottom: 5px;
+    }
+
+    .card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 0;
+      margin-bottom: 15px;
+      color: #fbd02d;
+    }
+
+    .card .price {
+      font-size: 32px;
+      font-weight: 800;
+      color: #fbd02d;
+      margin: 0;
+    }
+
+    .card p {
+      margin: 5px 0 0;
+      font-size: 14px;
+      color: white;
+    }
+
+    /* Curve under the card */
+    /* Curve under the card */
+.curve {
+  position: absolute;
+  bottom: -20px;                   /* push curve below card */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120%;                      /* wider than card */
+  height: 120px;                    /* half height = radius */
+  border: 4px solid black;
+  border-top: none;                 /* only bottom arc */
+  border-radius: 0 0 120px 120px;   /* perfect half-circle */
+}
+
+/* Dots on the curve ends */
+.dot {
+  position: absolute;
+  top: 65%;                       /* center vertically with card */
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  background: #fbd02d;
+  border-radius: 50%;
+}
+
+.dot.left {
+  left: -30px;  /* aligns with curve’s left end */
+}
+
+.dot.right {
+  right: -30px; /* aligns with curve’s right end */
+}
+.package-btn {
+  background-color: #0B0C45;   /* default inactive color */
+  color:  #fbd02d;
+  border: none;
+  padding: 14px 32px;
+  font-size: 18px; 
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.package-btn.active {
+  background-color:  #fbd02d; /* active button color */
+  color: #0B0C45;
+   font-weight: bold;
+}
+
+.package-btn:hover {
+  background-color: #ffe08a; /* lighter hover effect */
+}
+
+.price-wrapper {
+  text-align: center; /* keeps everything centered */
+}
+
+.price {
+  display: flex;
+  align-items: right;
+  justify-content: center;
+  gap: 8px;  /* space between ₹ and amount */
+}
+
+.rupee-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 4px solid white;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  
+
+}
+
+.amount {
+  font-size: 35px;
+  font-weight: bold;
+  margin-right:20%;
+}
+
+
+ .card-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 per row */
+  gap: 40px;
+  max-width: 700px;
+  margin: 5% auto; /* center horizontally */
+  justify-content: center;
+  align-items:  stretch;  /* ✅ makes each card keep its own height */
+}
+  /* Make top corners diagonal, bottom straight */
+.construction-card {
+  width: 300px;
+  background: #f3dd61ff;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+
+  /* Diagonal top corners, flat bottom */
+  clip-path: polygon(
+    50px 0,                     /* cut top-left */
+    calc(100% - 50px) 0,        /* cut top-right */
+    100% 50px,                  /* slope down right */
+    100% 100%,                  /* bottom right */
+    0 100%,                     /* bottom left */
+    0 50px                      /* slope down left */
+  );
+}
+
+
+/* Gradient header */
+.card-header {
+  position: relative;
+  background: linear-gradient(to right, #FFD700, 50% , black,  #0B0C45 90% );
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  padding: 12px 0;
+  font-weight: bolder;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Folded triangles */
+.card-header::before,
+.card-header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 60px;
+  height: 60px;
+  z-index: 0;
+}
+
+/* Left fold */
+.card-header::before {
+  left: -10px;
+  clip-path: 
+  polygon(100% 0, 100% 100%, 0 100%);
+  background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(0,0,0,0.25)),
+              linear-gradient(to right, #fbd02d, #fbd02d, #0a1ab9);
+  box-shadow: -2px 2px 4px rgba(0,0,0,0.25) inset;
+}
+
+/* Right fold */
+.card-header::after {
+  right: -10px;
+  clip-path: polygon(100% 100%,0 0, 0 100% );
+  background: linear-gradient(-135deg, rgba(255,255,255,0.4), rgba(0,0,0,0.25)),
+              linear-gradient(to bottom, #fbd02d 50%, #0a1ab9 );
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.25) inset;
+}
+
+/* Body */
+.card-body {
+  padding: 15px 20px;
+  color: #000;
+  font-weight: 900;
+  font-size: large;
+}
+
+.book-btn {
+  background: linear-gradient(to right,  #0B0C45 , #ffcc00); /* blue → yellow */
+  color: #fff;
+  border: none;
+  border-radius:none;
+  font-weight: bold;
+  padding: 15px 30px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Hover effect */
+.book-btn:hover {
+  background: linear-gradient(to right, #ffcc00,   #0B0C45); /* reverse */
+  color: #fff;
+  transform: translateY(-0px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+}
+
+  </style>
+  <section class="hero-section d-flex justify-content-center align-items-center">
+    {% if contactbanner.contact_image %}
+      <img src="{{ contactbanner.contact_image.url }}" alt="contact" class="bg-img" />
+    {% endif %}
+  </section> <section class="about-section container my-5">
+    <div class="row align-items-center py-0">
+      <h2 style="text-align:center">{{ contact_section.title|safe }}</h2> <p style="text-align:center;font-size: 1.5rem;">{{ contact_section.description }}</p>
+    </div>
+  </section> <!-- Package Buttons --> <div class="d-flex justify-content-center gap-3 my-4">
+    {% for package in packages %}
+      <button class="package-btn {% if forloop.first %}active{% endif %}" data-target="{{ package.name }}"><b>{{ package.get_name_display }} Package</b></button>
+    {% endfor %}
+  </div> <!-- Package Cards --> <div class="d-flex justify-content-center my-4">
+    {% for package in packages %}
+      <div class="card package-card {% if not forloop.first %}d-none{% endif %}" id="{{ package.name }}">
+        <h2>{{ package.get_name_display }}</h2> <h2 style="color:#fbd02d;">Package</h2> <div class="price-wrapper">
+          <div class="price">
+            <span class="rupee-circle">₹</span> <span class="amount">{{ package.price_per_sqft }}</span>
+          </div> <h6 style="text-align:center; margin-left:20%">Per Sq Feet</h6>
+        </div> <div class="curve"></div> <div class="dot left"></div> <div class="dot right"></div>
+      </div>
+    {% endfor %}
+  </div> <!-- Package Details --> {% for package in packages %}
+    <div class="card-container {% if not forloop.first %}d-none{% endif %}" id="{{ package.name }}-details">
+      {% for detail in package.details.all %}
+        <div class="construction-card">
+          <div class="card-header">{{ detail.get_category_display }}</div> <div class="card-body">{{ detail.description|linebreaks }}</div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %} <!-- Styles --> <div class="d-flex justify-content-center mt-4">
+    <button class="btn book-btn">Book Now</button>
+  </div> <!-- Script --> <script>
+                           const buttons = document.querySelectorAll('.package-btn')
+                           const cards = document.querySelectorAll('.package-card')
+                           const premiumDetails = document.getElementById('premium-details')
+                           const standardDetails = document.getElementById('standard-details')
+                           const basicDetails = document.getElementById('basic-details') // On page load -> show only basic window.addEventListener("DOMContentLoaded", () => { cards.forEach(card => card.classList.add("d-none")); document.getElementById("basic").classList.remove("d-none"); premiumDetails.classList.add("d-none"); standardDetails.classList.add("d-none"); basicDetails.classList.remove("d-none"); }); buttons.forEach(btn => { btn.addEventListener("click", () => { // remove active class from all buttons buttons.forEach(b => b.classList.remove("active")); btn.classList.add("active"); // hide all cards cards.forEach(card => card.classList.add("d-none")); // hide all details premiumDetails.classList.add("d-none"); standardDetails.classList.add("d-none"); basicDetails.classList.add("d-none"); // show target card const targetId = btn.getAttribute("data-target"); document.getElementById(targetId).classList.remove("d-none"); // show corresponding details if (targetId === "premium") { premiumDetails.classList.remove("d-none"); } else if (targetId === "standard") { standardDetails.classList.remove("d-none"); } else if (targetId === "basic") { basicDetails.classList.remove("d-none"); } }); });
+                         </script>
+{% endblock %}

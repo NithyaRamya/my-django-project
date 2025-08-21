@@ -1,17 +1,12 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{{ banner.title }}</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <style>
-    body, h1, h2, h3, p, a, span {
-      font-family: 'Poppins', sans-serif;
-    }
+
+{% block title %}{{ banner.title }}{% endblock %}
+
+{% block content %}
+
+<style>
+  body, h1, h2, h3, p, a, span { font-family: 'Poppins', sans-serif; }
     
   .hero-section {
   position: relative;
@@ -145,36 +140,233 @@
     to { height: 80px; }
   }
 }
-  </style>
-</head>
-<body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #040837;">
-    <div class="container">
-      {% if banner.house_image %}
-        <a class="navbar-brand" href="#">
-          <img src="{{ banner.house_image.url }}" alt="Logo" height="50">
-        </a>
-      {% endif %}
-      
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+@media (max-width: 768px) {
+  /* Hero section adjustments */
+  .hero-section {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+  .hero-section h1 {
+    font-size: 1.8rem;
+    line-height: 1.4;
+  }
+  .hero-section p {
+    font-size: 1rem;
+  }
 
-      <div class="collapse navbar-collapse" id="mainNavbar">
-        <ul class="navbar-nav ms-auto align-items-lg-center gap-4">
-          <li class="nav-item"><a class="nav-link text-white" href="#">About Us</a></li>
-          <li class="nav-item"><a class="nav-link text-white" href="#">Services</a></li>
-          <li class="nav-item"><a class="nav-link text-white" href="#">Plans & Pricing</a></li>
-          <li class="nav-item"><a class="nav-link text-white" href="#">Projects</a></li>
-          <li class="nav-item">
-            <a href="#" class="btn btn-gold rounded ms-lg-3">Enquiry</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  /* Why choose us circular cards */
+  .custom-row .rounded-circle {
+    width: 140px !important;
+    height: 140px !important;
+    padding: 20px !important;
+  }
+  .custom-row p {
+    font-size: 0.85rem;
+  }
 
+  /* Features section image */
+  .col-md-4 img {
+    max-width: 80%;
+    height: auto;
+  }
+
+  /* Review cards */
+  .review-card .bg-img {
+    height: 180px;
+  }
+  .review-card .review-box {
+    width: 90%;
+    padding: 10px;
+  }
+  .review-card h5 {
+    font-size: 1rem;
+  }
+  .review-card p {
+    font-size: 0.85rem;
+  }
+
+  /* Services section spacing */
+  .services-section span {
+    font-size: 0.85rem !important;
+    padding: 4px 8px !important;
+  }
+
+  /* Footer stacking */
+  footer > div {
+    flex-direction: column;
+    text-align: center;
+  }
+  footer img {
+    margin: auto;
+  }
+
+  footer, footer > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  .hero-section h1 {
+    font-size: 1.5rem;
+  }
+  .hero-section p {
+    font-size: 0.9rem;
+  }
+  .custom-row .rounded-circle {
+    width: 120px !important;
+    height: 120px !important;
+  }
+  .review-card .bg-img {
+    height: 150px;
+  }
+}
+.custom-row {
+    row-gap: 3rem; /* vertical gap */
+    column-gap: 2rem; /* horizontal gap */
+}
+img.img-fluid {
+    object-fit: cover;
+    width: 100%;
+    height: 250px; /* uniform height */
+}
+ /* Target the 2nd card in the row */
+  .row.g-4 .col-md-6:nth-child(2) {
+    margin-top: -30px;
+    margin-bottom: 60px;
+     /* adjust this value to move more/less */
+  }
+
+  
+      /* Review card container */
+  .review-card {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    max-width: 300px;
+    height:350px;
+    margin: auto;
+    background: white; /* Fallback if no image */
+  }
+
+  /* Background image */
+  .review-card .bg-img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* White floating review box */
+  .review-card .review-box {
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    bottom: 15px; /* Creates gap between box and card bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-height: 180px; /* Enough height for short reviews */
+  }
+
+  /* Profile image */
+  .review-card .profile-pic {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid white;
+    position: absolute;
+    top: -25px; /* Floating above box */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Reviewer name */
+  .review-card h5 {
+    font-weight: bold;
+    margin-top: 25px; /* Adjust for profile image overlap */
+    font-size: 16px;
+  }
+
+  /* Review text */
+  .review-card p {
+    font-size: 8px;
+    color: #555;
+    margin-bottom: 10px;
+  }
+
+  /* Stars */
+  .review-card .stars {
+    color: gold;
+    font-size: 14px;
+  }
+
+  /* Middle card lifted */
+  
+.five-words-line {
+    line-height: 1.6;
+    margin-top: 5px;
+    max-width: 30ch; /* around 5 average-length words */
+    word-wrap: break-word;
+}
+.contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.contact-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* space between icon and text */
+    margin-bottom: 10px;
+}
+
+.contact-list a {
+    background-color: #FFD700; /* yellow circle */
+    color: #0B0C45; /* dark blue icon color */
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.contact-list a:hover {
+    background-color: #ffcc00; /* hover yellow */
+}
+
+@media (max-width: 960px) {   /* adjust breakpoint as needed */
+    footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        flex-wrap: wrap;
+    }
+
+    footer h2, 
+    footer h3, 
+    footer p, 
+    footer a {
+        text-align: center;
+        margin: 5px 0;
+    }
+}
+</style>
   <!-- Hero Section -->
   <section class="hero-section d-flex justify-content-center align-items-center">
     {% if banner.background_image %}
@@ -188,7 +380,185 @@
       <a style="font-weight: normal;" href="#" class="btn btn-gold rounded px-4 py-2">Book Now</a>
     </div>
   </section>
+<!-- Why Choose Us Section --> 
+ <section class="py-5"
+ {% if banner_bg.background_image %}
+        style="background: url('{{ banner_bg.background_image.url }}') no-repeat center center; background-size: cover;"
+    {% endif %}>
+   
+  <div class="container text-center">
+  <h2 class="fw-bold">
+    <span style="color: #FFD700;">Nagecoil </span> Builders
+  </h2>
+  <div class="row justify-content-center mb-5">
+    {% for item in why_choose_items %}
+      <div class="col-lg-2 col-md-3 col-sm-6 col-12 mb-3 mt-3 d-flex justify-content-center">
+        <div class="p-4 shadow rounded-circle text-white d-flex flex-column align-items-center justify-content-center"
+             style="width: 150px; height: 150px; background-color: #040837;">
+          {% if item.icon %}
+            <img src="{{ item.icon.url }}" alt="{{ item.title }}" class="mb-2" style="width: 40px;">
+          {% endif %}
+          <p class="mb-0">{{ item.title }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+</section>
+<section>
+    <h1 class="fw-bold text-center mt-5">
+      Why <span style="color: #FFD700;">Choose</span> Us
+    </h1>
+    <p class="mt-4 mb-5 mx-4 text-center" style="font-size:1.8rem;line-height: 1.8;">{{ banner.description3 }}</p>     
+  
+</section>
+<section class="py-5" style="background-color: #FBF9BA">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Left Column with 3 items -->
+      <div class="col-md-4">
+        {% for feature in features|slice:":3" %}
+          <div class="d-flex mb-4">
+            <div class="me-3">
+              <img src="{{ feature.icon.url }}" alt="{{ feature.title }}" class="rounded-circle" style="width:60px; height:60px; object-fit:cover;">
+            </div>
+            <div>
+              <h5 class="fw-bold">{{ feature.title }}</h5>
+              <p class="mb-0" style="font-size:small">{{ feature.description }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Right Column with 3 items -->
+ <div class="col-md-4">
+        {% for feature in features|slice:"3:" %}
+          <div class="d-flex mb-4">
+            <div class="me-3">
+              <img src="{{ feature.icon.url }}" alt="{{ feature.title }}" class="rounded-circle" style="width:60px; height:60px; object-fit:cover;">
+            </div>
+            <div>
+              <h5 class="fw-bold">{{ feature.title }}</h5>
+              <p class="mb-0" style="font-size:small">{{ feature.description }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Middle Column Image -->
+      <!-- Middle Column Image -->
+<div class="col-md-4 text-center">
+  {% if middle_image %}
+    <img src="{{ middle_image.image.url }}" 
+         alt="{{ middle_image.alt_text|default:'Main Image' }}" 
+         >
+  {% endif %}
+</div> 
+    </div>
+  </div>
+</section>
+<section>
+    <h1 class="fw-bold text-center mt-5">
+      <span style="color: #FFD700;">Services</span> We Provide
+    </h1>
+    <p class="mt-4 mb-5 mx-4 text-center" style="font-size:1.8rem;line-height: 1.8;">{{ banner.description4 }}</p>     
+ <div class="container">
+  <div class="row g-3">
+    {% for service in services %}
+      {% if forloop.counter <= 2 %}
+        <!-- First Row: 2 images -->
+        <div class="col-md-6 col-sm-6">
+          <div class="position-relative">
+            <img src="{{ service.image.url }}" alt="{{ service.title }}" class="img-fluid rounded shadow">
+            <span class="position-absolute bottom-0 start-0 m-2 px-3 py-1 text-white fw-bold rounded"
+                  style="background-color: #001f54; font-size: 1rem;">
+              {{ service.title }}
+            </span>
+          </div>
+        </div>
+      {% elif forloop.counter == 3 %}
+        <!-- Second Row: First image wider -->
+        <div class="col-md-8 col-sm-8">
+          <div class="position-relative">
+            <img src="{{ service.image.url }}" alt="{{ service.title }}" class="img-fluid rounded shadow">
+            <span class="position-absolute bottom-0 start-0 m-2 px-3 py-1 text-white fw-bold rounded"
+                  style="background-color: #001f54; font-size: 1rem;">
+              {{ service.title }}
+            </span>
+          </div>
+        </div>
+      {% elif forloop.counter == 4 %}
+        <!-- Second Row: Second image smaller -->
+        <div class="col-md-4 col-sm-4">
+          <div class="position-relative">
+            <img src="{{ service.image.url }}" alt="{{ service.title }}" class="img-fluid rounded shadow">
+            <span class="position-absolute bottom-0 start-0 m-2 px-3 py-1 text-white fw-bold rounded"
+                  style="background-color: #001f54; font-size: 1rem;">
+              {{ service.title }}
+            </span>
+          </div>
+        </div>
+      {% else %}
+        <!-- Remaining images (2 per row) -->
+        <div class="col-md-6 col-sm-6">
+          <div class="position-relative">
+            <img src="{{ service.image.url }}" alt="{{ service.title }}" class="img-fluid rounded shadow">
+            <span class="position-absolute bottom-0 start-0 m-2 px-3 py-1 text-white fw-bold rounded"
+                  style="background-color: #001f54; font-size: 1rem;">
+              {{ service.title }}
+            </span>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+<div class="text-center mt-5 mb-5">
+  <a href="{% url 'services' %}" class="btn btn-gold rounded ms-lg-3 px-4 py-2">View More</a>
+</div>
+</section>
+
+<section style="background-color: #FBF9BA;">
+  <h1 class="fw-bold text-center mt-4 p-5">
+    Our <span style="color: #FFD700;">Client</span> Reviews
+  </h1>
+  <div class="container mt-5 mb-5 p-5">
+    <div class="row g-4">
+      {% for review in reviews %}
+        <div class="col-lg-4 col-md-6 col-12">
+          <div class="review-card h-100">
+            {% if review.background_image %}
+              <img src="{{ review.background_image.url }}" alt="Background" class="bg-img" />
+            {% endif %}
+            <div class="review-box p-3" style="margin-bottom: 15px;">
+              <img src="{{ review.image.url }}" alt="Profile" class="profile-pic">
+              <h5>{{ review.name }}</h5>
+              <p style="color: #555;">{{ review.review_text }}</p>
+
+  
+    <div class="rating">
+    {% for i in "12345"|make_list %}
+        {% if forloop.counter <= review.full_stars %}
+            <i class="fas fa-star" style="color: gold;"></i>
+        {% elif forloop.counter == review.full_stars|add:"1" and review.half_star %}
+            <i class="fas fa-star-half-alt" style="color: gold;"></i>
+        {% else %}
+            <i class="far fa-star" style="color: gold;"></i>
+        {% endif %}
+    {% endfor %}
+</div>
+
+
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+
+  
+{% endblock %}
